@@ -12,6 +12,12 @@ void analyze_tcp(const unsigned char *packet_pointer){
     fprintf(stdout, "%d\n", ntohs(header->sport));
     fprintf(stdout, "Distination IP Address: ");
     fprintf(stdout, "%d\n",  ntohs(header->dport));
+    fprintf(stdout, "SequenceNumber: %d\n", ntohs(header->snumber));
+    fprintf(stdout, "AcknowledgmentNumber: %d\n", ntohs(header->anumber));
+    u_int16_t flag = ntohs(header->flag);
+    fprintf(stdout, "URG: %d ACK: %d PSH: %d RST: %d SYN: %d FIN: %d\n",
+    (flag & 32) >> 5, (flag & 16) >> 4, (flag & 8) >> 3,
+    (flag & 4) >> 2, (flag & 2) >> 1, flag & 1);
 }
 
 void analyze_ip_v4(const unsigned char *packet_pointer){
